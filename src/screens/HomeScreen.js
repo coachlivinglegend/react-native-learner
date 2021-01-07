@@ -7,7 +7,7 @@ const HomeScreen = () => {
 
 const styles = StyleSheet.create({
   text: {
-    fontSize: 50,
+    fontSize: 10,
     color: "red",
     textAlign: "center",
   }
