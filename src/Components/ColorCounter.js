@@ -5,7 +5,7 @@ const ColorCounter = ({color, onIncrease, onDecrease, mark}) => {
     return (
         <View>
             <Text>
-                {color} -> {mark}
+                {color} - {mark}
             </Text>
             <Button onPress={() => onIncrease()} title={`Increase ${color}`}/>
             <Button onPress={() => onDecrease()} title={`Decrease ${color}`}/>
