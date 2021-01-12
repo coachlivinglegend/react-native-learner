@@ -6,11 +6,16 @@ import yelp from '../Api/Yelp'
 const SearchScreen = () => {
     const [term, setTerm] = useState('')
     const [results, setResults] = useState([])
+    const [errorMessage, setErrorMessage] = useState('')
 
-    const searchApi = () => {
+    useEffect(() => {
+        searchApi('pasta')
+    }, [ ])
+
+    const searchApi = (searchTerm) => {
         const params = new URLSearchParams({
             limit: 50,
-            term,
+            term: searchTerm,
             location: 'san jose'
         })
 
@@ -21,7 +26,7 @@ const SearchScreen = () => {
         })
         .then(res => res.json())
         .then(res => setResults(res.businesses))
-        .catch(err => console.log(err))
+        .catch(err => setErrorMessage('something went wrong'))
 
 
         // const response  = yelp.get('/search', {
@@ -44,9 +49,9 @@ const SearchScreen = () => {
             <SearchBar 
                 term={term} 
                 onTermChange={(newTerm) => setTerm(newTerm)} 
-                onTermSubmit={(doneTerm) => searchApi()}
+                onTermSubmit={(doneTerm) => searchApi(doneTerm)}
             />
-            <Text>{term}</Text>
+            { errorMessage ? <Text>errorMessage</Text> : null}
             <Text>We have found {results.length} results. </Text>
         </View>
     )
