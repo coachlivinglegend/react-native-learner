@@ -22,7 +22,7 @@ export default () => {
         })
         .then(res => res.json())
         .then(res => setResults(res.businesses))
-        .catch(err => setErrorMessage('something went wrong'))
+        .catch(err => {console.log(err.message); setErrorMessage('something went wrong')})
     }
     return [searchApi, results, errorMessage]
 }
