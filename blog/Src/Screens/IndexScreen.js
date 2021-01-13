@@ -1,15 +1,16 @@
 import React, { useContext } from 'react';
-import { Button, FlatList, StyleSheet, Text, TouchableOpacityBase, View } from 'react-native'
+import { Button, FlatList, StyleSheet, Text, TouchableOpacity , View } from 'react-native'
 import { Context } from '../Context/BlogContext';
 import { Feather } from '@expo/vector-icons';
-import { TouchableOpacity } from 'react-native-gesture-handler';
 
 const IndexScreen = ({ navigation }) => {
-    const { state, addBlogPost, deleteBlogPost } = useContext(Context)
+    const { state, deleteBlogPost } = useContext(Context)
+
+    if (!state.length) {
+        return <Text style={{textAlign: 'center', marginTop: 30}}>Add a blogpost xx</Text>
+    }
     return (
         <View>
-            <Text>Index Screen - {state.length}</Text>
-            <Button title="Add Post" onPress={addBlogPost}/>
             <FlatList 
                 data={state}
                 keyExtractor={( blogPost ) => blogPost.title}
@@ -30,6 +31,12 @@ const IndexScreen = ({ navigation }) => {
     )
 }
 
+IndexScreen.navigationOptions =({ navigation }) => {
+    return {
+        headerRight  : () => <TouchableOpacity onPress={() => navigation.navigate('Create')}><Feather style={styles.plus} name="plus" color="black" /></TouchableOpacity>
+    }
+}
+
 export default IndexScreen
 
 const styles = StyleSheet.create({
@@ -43,5 +50,9 @@ const styles = StyleSheet.create({
     },
     title: {
         fontSize: 18
+    },
+    plus: {
+        marginRight: 20,
+        fontSize: 30
     }
 })
